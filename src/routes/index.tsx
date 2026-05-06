@@ -1,26 +1,37 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { I18nProvider } from "@/lib/i18n";
+import Header from "@/components/Header";
+import Hero from "@/components/Hero";
+import InfinitySlider from "@/components/InfinitySlider";
+import CategoryGrid from "@/components/CategoryGrid";
+import WhyUs from "@/components/WhyUs";
+import Footer from "@/components/Footer";
+import WhatsAppButton from "@/components/WhatsAppButton";
 
 export const Route = createFileRoute("/")({
   component: Index,
+  head: () => ({
+    meta: [
+      { title: "Al Ahebba Grocery — Daily Essentials, Always Near You" },
+      { name: "description", content: "Bilingual neighborhood grocery delivering snacks, fresh bread, drinks, cooking essentials, cosmetics and more in 5–10 minutes." },
+    ],
+  }),
 });
 
-// IMPORTANT: Replace this placeholder. For sites with multiple pages (About, Services, Contact, etc.),
-// create separate route files (about.tsx, services.tsx, contact.tsx) — don't put all pages in this file.
-function PlaceholderIndex() {
-  return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
-  );
-}
-
 function Index() {
-  return <PlaceholderIndex />;
+  return (
+    <I18nProvider>
+      <div className="min-h-screen bg-background font-body">
+        <Header />
+        <main>
+          <Hero />
+          <InfinitySlider />
+          <CategoryGrid />
+          <WhyUs />
+        </main>
+        <Footer />
+        <WhatsAppButton />
+      </div>
+    </I18nProvider>
+  );
 }
