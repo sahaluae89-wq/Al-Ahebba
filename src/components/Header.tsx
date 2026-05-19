@@ -1,6 +1,7 @@
 import { useI18n } from "@/lib/i18n";
 import { Languages, MapPin, Menu, ShoppingBasket } from "lucide-react";
 import { useState } from "react";
+import { Link } from "@tanstack/react-router";
 
 export default function Header() {
   const { lang, setLang, tr } = useI18n();
@@ -19,9 +20,10 @@ export default function Header() {
         </a>
 
         <nav className="hidden items-center gap-8 md:flex">
-          <a href="#top" className="text-sm font-semibold transition hover:text-sun">{tr("navHome")}</a>
-          <a href="#categories" className="text-sm font-semibold transition hover:text-sun">{tr("navCategories")}</a>
-          <a href="#location" className="inline-flex items-center gap-1 text-sm font-semibold transition hover:text-sun">
+          <a href="/#top" className="text-sm font-semibold transition hover:text-sun">{tr("navHome")}</a>
+          <a href="/#categories" className="text-sm font-semibold transition hover:text-sun">{tr("navCategories")}</a>
+          <Link to="/products" search={{ category: "all" }} className="text-sm font-semibold transition hover:text-sun">{tr("navProducts")}</Link>
+          <a href="/#location" className="inline-flex items-center gap-1 text-sm font-semibold transition hover:text-sun">
             <MapPin className="h-4 w-4" />{tr("navLocation")}
           </a>
         </nav>
@@ -42,9 +44,10 @@ export default function Header() {
       {open && (
         <div className="border-t border-white/10 bg-forest-deep px-4 py-3 md:hidden">
           <nav className="flex flex-col gap-3">
-            <a href="#top" onClick={() => setOpen(false)} className="text-sm font-semibold">{tr("navHome")}</a>
-            <a href="#categories" onClick={() => setOpen(false)} className="text-sm font-semibold">{tr("navCategories")}</a>
-            <a href="#location" onClick={() => setOpen(false)} className="text-sm font-semibold">{tr("navLocation")}</a>
+            <a href="/#top" onClick={() => setOpen(false)} className="text-sm font-semibold">{tr("navHome")}</a>
+            <a href="/#categories" onClick={() => setOpen(false)} className="text-sm font-semibold">{tr("navCategories")}</a>
+            <Link to="/products" search={{ category: "all" }} onClick={() => setOpen(false)} className="text-sm font-semibold">{tr("navProducts")}</Link>
+            <a href="/#location" onClick={() => setOpen(false)} className="text-sm font-semibold">{tr("navLocation")}</a>
           </nav>
         </div>
       )}

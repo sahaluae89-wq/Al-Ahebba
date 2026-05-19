@@ -6,7 +6,8 @@ type Dict = Record<string, { en: string; ar: string }>;
 
 export const t: Dict = {
   navHome: { en: "Home", ar: "الرئيسية" },
-  navCategories: { en: "All Categories", ar: "كل الفئات" },
+  navCategories: { en: "Categories", ar: "كل الفئات" },
+  navProducts: { en: "Products", ar: "المنتجات" },
   navLocation: { en: "Location", ar: "الموقع" },
   toggle: { en: "العربية", ar: "English" },
   heroTitle: { en: "Everything you need, right around the corner!", ar: "كل ما تحتاجه، بجانبك تماماً!" },

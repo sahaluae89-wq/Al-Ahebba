@@ -1,5 +1,5 @@
 import { useI18n } from "@/lib/i18n";
-import { Facebook, Instagram, MapPin, Phone, ShoppingBasket } from "lucide-react";
+import { MapPin, Phone, ShoppingBasket } from "lucide-react";
 
 export default function Footer() {
   const { tr } = useI18n();
@@ -20,22 +20,22 @@ export default function Footer() {
 
             <div className="mt-6 space-y-4 text-sm">
               <div className="flex items-start gap-3">
-                <MapPin className="mt-0.5 h-5 w-5 text-sun" />
-                <span>{tr("address")}</span>
+                <MapPin className="mt-0.5 h-5 w-5 shrink-0 text-sun" />
+                <a 
+                  href="https://maps.app.goo.gl/ydGYwhJ5e3Dy6tRNA" 
+                  target="_blank" 
+                  rel="noreferrer"
+                  className="hover:text-sun transition-colors"
+                >
+                  41 Ras Abu Al Abyad St - Al Mu'tarid - Hai Suroor - Abu Dhabi - United Arab Emirates.
+                </a>
               </div>
               <div className="flex items-start gap-3">
                 <Phone className="mt-0.5 h-5 w-5 text-sun" />
-                <a href="tel:+0000000000" className="hover:text-sun">+000 000 0000</a>
+                <a href="tel:+971582082900" className="hover:text-sun">+971 58 208 2900</a>
               </div>
             </div>
 
-            <div className="mt-8">
-              <p className="text-xs font-bold uppercase tracking-widest text-sun">{tr("follow")}</p>
-              <div className="mt-3 flex gap-3">
-                <a href="#" className="grid h-10 w-10 place-items-center rounded-full bg-white/10 transition hover:bg-sun hover:text-forest-deep"><Instagram className="h-5 w-5" /></a>
-                <a href="#" className="grid h-10 w-10 place-items-center rounded-full bg-white/10 transition hover:bg-sun hover:text-forest-deep"><Facebook className="h-5 w-5" /></a>
-              </div>
-            </div>
           </div>
         </div>
 

@@ -12,9 +12,7 @@ export default function Hero() {
 
       <div className="relative mx-auto grid max-w-7xl gap-10 px-4 py-16 md:grid-cols-[1.3fr_1fr] md:px-8 md:py-24">
         <div className="flex flex-col justify-center">
-          <span className="inline-flex w-fit items-center gap-2 rounded-full border border-sun/40 bg-white/5 px-3 py-1 text-xs font-semibold uppercase tracking-widest text-sun">
-            <Sparkles className="h-3.5 w-3.5" /> Al Ahebba Grocery
-          </span>
+
           <h1 className="mt-5 font-display text-4xl font-extrabold leading-[1.05] md:text-6xl lg:text-7xl">
             {tr("heroTitle")}
           </h1>
@@ -28,7 +26,7 @@ export default function Hero() {
               <ShoppingBag className="h-5 w-5" /> {tr("shopNow")}
             </a>
             <a
-              href="tel:+0000000000"
+              href="tel:+971582082900"
               className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/5 px-6 py-3 font-bold text-white transition hover:bg-white/10"
             >
               <Phone className="h-5 w-5" /> {tr("callUs")}
@@ -37,12 +35,12 @@ export default function Hero() {
         </div>
 
         <div className="relative hidden items-center justify-center md:flex">
-          <div className="relative grid grid-cols-2 gap-4">
-            {["🥐", "🍦", "🥤", "🧴"].map((e) => (
-              <div key={e} className="grid h-32 w-32 place-items-center rounded-3xl bg-white/10 text-6xl shadow-xl backdrop-blur-sm ring-1 ring-white/20">
-                {e}
-              </div>
-            ))}
+          <div className="relative overflow-hidden rounded-[2rem] shadow-2xl ring-1 ring-white/20">
+            <img
+              src="https://res.cloudinary.com/dbdjjz1kl/image/upload/v1778092190/ChatGPT_Image_May_6_2026_11_59_09_PM_pfw3bj.png"
+              alt="Al Ahebba Grocery"
+              className="h-auto w-full max-w-md object-cover"
+            />
           </div>
           <div className="animate-float absolute -right-2 -top-2 grid h-32 w-32 place-items-center rounded-full bg-sun text-center font-display font-extrabold text-forest-deep shadow-2xl ring-4 ring-white/30">
             <span className="px-2 text-sm leading-tight">{tr("delivery")}</span>

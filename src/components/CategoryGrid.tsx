@@ -1,7 +1,9 @@
 import { useMemo, useState } from "react";
 import { Search } from "lucide-react";
+import { Link } from "@tanstack/react-router";
 import { useI18n } from "@/lib/i18n";
 import { categories } from "@/lib/categories";
+import { LayoutGrid } from "lucide-react";
 
 type Filter = "all" | "food" | "nonfood";
 
@@ -63,19 +65,34 @@ export default function CategoryGrid() {
         </div>
 
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
+          <Link
+            to="/products"
+            search={{ category: "all" }}
+            className="group relative flex aspect-square flex-col items-center justify-center rounded-2xl border-2 border-forest/15 bg-white p-4 text-center shadow-sm transition hover:-translate-y-1 hover:border-forest hover:shadow-xl"
+          >
+            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-forest/10 transition group-hover:scale-110">
+              <LayoutGrid className="h-8 w-8 text-forest" />
+            </div>
+            <span className="mt-3 font-display text-sm font-bold leading-tight text-forest-deep">
+              {tr("filterAll")}
+            </span>
+          </Link>
+
           {results.map((c) => (
-            <button
+            <Link
               key={c.id}
+              to="/products"
+              search={{ category: c.id }}
               className="group relative flex aspect-square flex-col items-center justify-center rounded-2xl border-2 border-forest/15 bg-white p-4 text-center shadow-sm transition hover:-translate-y-1 hover:border-forest hover:shadow-xl"
             >
-              <span className="text-5xl transition group-hover:scale-110">{c.emoji}</span>
+              <img src={c.image} alt={c.en} className="h-16 w-16 object-contain transition group-hover:scale-110" />
               <span className="mt-3 font-display text-sm font-bold leading-tight text-forest-deep">
                 {lang === "ar" ? c.ar : c.en}
               </span>
               <span className="absolute top-2 rounded-full bg-sun/80 px-2 py-0.5 text-[10px] font-bold uppercase text-forest-deep ltr:right-2 rtl:left-2">
                 {c.type === "food" ? tr("filterFood") : tr("filterNonFood")}
               </span>
-            </button>
+            </Link>
           ))}
         </div>
       </div>
