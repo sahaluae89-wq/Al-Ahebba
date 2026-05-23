@@ -35,10 +35,11 @@ export const t: Dict = {
   address: { en: "Neighborhood Plaza, Main Street", ar: "بلازا الحي، الشارع الرئيسي" },
   tagline: { en: "Daily Essentials, Always Near You", ar: "مستلزماتك اليومية، دائماً بالقرب منك" },
   rights: { en: "All rights reserved", ar: "جميع الحقوق محفوظة" },
+  fastDelivery: { en: "Fast Grocery Delivery", ar: "توصيل بقالة سريع" },
 };
 
 const Ctx = createContext<{ lang: Lang; setLang: (l: Lang) => void; tr: (k: keyof typeof t) => string }>({
-  lang: "en", setLang: () => {}, tr: (k) => t[k].en,
+  lang: "en", setLang: () => {}, tr: (k) => t[k]?.en || "",
 });
 
 export function I18nProvider({ children }: { children: ReactNode }) {
@@ -49,7 +50,7 @@ export function I18nProvider({ children }: { children: ReactNode }) {
     document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
   }, [lang]);
   return (
-    <Ctx.Provider value={{ lang, setLang, tr: (k) => t[k][lang] }}>
+    <Ctx.Provider value={{ lang, setLang, tr: (k) => t[k]?.[lang] || "" }}>
       {children}
     </Ctx.Provider>
   );

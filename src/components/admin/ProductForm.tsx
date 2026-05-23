@@ -32,7 +32,7 @@ const productSchema = z.object({
   category: z.string().min(1, "Please select a category"),
   price: z.coerce.number().optional().nullable(),
   offer_percentage: z.coerce.number().min(0).max(100).optional().nullable(),
-  in_stock: z.boolean().default(true),
+  in_stock: z.boolean(),
   image_url: z.string().min(1, "Image is required"),
 });
 
@@ -71,7 +71,7 @@ export function ProductForm({ initialData, onSubmit, isLoading }: ProductFormPro
 
       const formData = new FormData();
       formData.append("file", file);
-      formData.append("api_key", apiKey);
+      formData.append("api_key", apiKey || "");
       formData.append("timestamp", timestamp.toString());
       formData.append("signature", signature);
 
@@ -102,7 +102,7 @@ export function ProductForm({ initialData, onSubmit, isLoading }: ProductFormPro
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div className="space-y-6">
             <FormField
-              control={form.control}
+              control={form.control as any}
               name="name"
               render={({ field }) => (
                 <FormItem>
@@ -116,7 +116,7 @@ export function ProductForm({ initialData, onSubmit, isLoading }: ProductFormPro
             />
 
             <FormField
-              control={form.control}
+              control={form.control as any}
               name="description"
               render={({ field }) => (
                 <FormItem>
@@ -135,7 +135,7 @@ export function ProductForm({ initialData, onSubmit, isLoading }: ProductFormPro
 
             <div className="grid grid-cols-2 gap-4">
               <FormField
-                control={form.control}
+                control={form.control as any}
                 name="category"
                 render={({ field }) => (
                   <FormItem>
@@ -160,7 +160,7 @@ export function ProductForm({ initialData, onSubmit, isLoading }: ProductFormPro
               />
 
               <FormField
-                control={form.control}
+                control={form.control as any}
                 name="in_stock"
                 render={({ field }) => (
                   <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4 shadow-sm">
@@ -180,7 +180,7 @@ export function ProductForm({ initialData, onSubmit, isLoading }: ProductFormPro
 
             <div className="grid grid-cols-2 gap-4">
               <FormField
-                control={form.control}
+                control={form.control as any}
                 name="price"
                 render={({ field }) => (
                   <FormItem>
@@ -200,7 +200,7 @@ export function ProductForm({ initialData, onSubmit, isLoading }: ProductFormPro
               />
 
               <FormField
-                control={form.control}
+                control={form.control as any}
                 name="offer_percentage"
                 render={({ field }) => (
                   <FormItem>
@@ -225,7 +225,7 @@ export function ProductForm({ initialData, onSubmit, isLoading }: ProductFormPro
 
           <div className="space-y-6">
             <FormField
-              control={form.control}
+              control={form.control as any}
               name="image_url"
               render={({ field }) => (
                 <FormItem>

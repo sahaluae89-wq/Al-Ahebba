@@ -8,6 +8,7 @@ export default function WhatsAppButton() {
       href="https://wa.me/971582082900"
       target="_blank"
       rel="noreferrer"
+      aria-label={tr("whatsapp")}
       className="fixed bottom-6 z-40 inline-flex items-center gap-2 rounded-full bg-[#25D366] px-5 py-3 font-bold text-white shadow-2xl ring-4 ring-white/30 transition hover:scale-105 ltr:right-6 rtl:left-6"
     >
       <MessageCircle className="h-5 w-5" />

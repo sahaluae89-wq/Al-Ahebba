@@ -4,6 +4,7 @@ import { Link } from "@tanstack/react-router";
 import { useI18n } from "@/lib/i18n";
 import { categories } from "@/lib/categories";
 import { LayoutGrid } from "lucide-react";
+import { optimizeCloudinaryUrl } from "@/lib/cloudinary";
 
 type Filter = "all" | "food" | "nonfood";
 
@@ -85,7 +86,7 @@ export default function CategoryGrid() {
               search={{ category: c.id }}
               className="group relative flex aspect-square flex-col items-center justify-center rounded-2xl border-2 border-forest/15 bg-white p-4 text-center shadow-sm transition hover:-translate-y-1 hover:border-forest hover:shadow-xl"
             >
-              <img src={c.image} alt={c.en} className="h-16 w-16 object-contain transition group-hover:scale-110" />
+              <img src={optimizeCloudinaryUrl(c.image, 150)} alt={c.en} className="h-16 w-16 object-contain transition group-hover:scale-110" />
               <span className="mt-3 font-display text-sm font-bold leading-tight text-forest-deep">
                 {lang === "ar" ? c.ar : c.en}
               </span>

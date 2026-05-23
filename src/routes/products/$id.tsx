@@ -110,11 +110,11 @@ function ProductDetailsPage() {
               {product.price && (
                 <div className="mb-6 flex items-baseline gap-2">
                   <span className="text-4xl font-bold text-primary">
-                    {product.price} QAR
+                    {product.price} AED
                   </span>
                   {product.offer_percentage && (
                     <span className="text-lg font-medium text-muted-foreground line-through decoration-red-500 decoration-2">
-                      {((product.price * 100) / (100 - product.offer_percentage)).toFixed(2)} QAR
+                      {((product.price * 100) / (100 - product.offer_percentage)).toFixed(2)} AED
                     </span>
                   )}
                 </div>

@@ -88,15 +88,15 @@
 }
 
 @keyframes scroll-ltr {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(-50%, 0, 0); }
 }
 @keyframes scroll-rtl {
-  from { transform: translateX(0); }
-  to { transform: translateX(50%); }
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(50%, 0, 0); }
 }
-.animate-scroll-ltr { animation: scroll-ltr 40s linear infinite; }
-.animate-scroll-rtl { animation: scroll-rtl 40s linear infinite; }
+.animate-scroll-ltr { animation: scroll-ltr 40s linear infinite; will-change: transform; }
+.animate-scroll-rtl { animation: scroll-rtl 40s linear infinite; will-change: transform; }
 .slider-mask:hover .animate-scroll-ltr,
 .slider-mask:hover .animate-scroll-rtl { animation-play-state: paused; }
 

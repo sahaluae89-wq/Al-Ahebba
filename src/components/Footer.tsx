@@ -9,7 +9,8 @@ export default function Footer() {
         <div className="grid gap-10 md:grid-cols-2">
           <div className="overflow-hidden rounded-3xl border-4 border-sun shadow-2xl">
             <iframe
-              title="map"
+              title="Al Ahebba Grocery Location Map"
+              loading="lazy"
               className="h-72 w-full md:h-full"
               src="https://www.openstreetmap.org/export/embed.html?bbox=55.27%2C25.19%2C55.30%2C25.21&layer=mapnik"
             />

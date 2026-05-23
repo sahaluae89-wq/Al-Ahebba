@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { optimizeCloudinaryUrl } from "@/lib/cloudinary";
 
 interface ProductCardProps {
   product: {
@@ -23,10 +24,10 @@ export function ProductCard({ product }: ProductCardProps) {
 
   return (
     <div className="group relative flex flex-col rounded-2xl border-2 border-forest/15 bg-white shadow-sm transition-all hover:-translate-y-1 hover:border-forest hover:shadow-xl overflow-hidden">
-      <Link to={`/products/${product.id}`} className="flex-1">
+      <Link to="/products/$id" params={{ id: product.id }} className="flex-1">
         <div className="relative aspect-square w-full overflow-hidden bg-gray-50">
           <img
-            src={product.image_url}
+            src={optimizeCloudinaryUrl(product.image_url, 400)}
             alt={product.name}
             className="h-full w-full object-cover transition duration-300 group-hover:scale-105"
           />
@@ -62,7 +63,7 @@ export function ProductCard({ product }: ProductCardProps) {
           <div className="mt-2 flex items-center justify-between">
             {product.price ? (
               <span className="font-bold text-lg text-primary">
-                {product.price} QAR
+                {product.price} AED
               </span>
             ) : (
               <span className="text-sm text-muted-foreground">Price on request</span>

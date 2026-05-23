@@ -1,6 +1,7 @@
 import { useI18n } from "@/lib/i18n";
 import { categories } from "@/lib/categories";
 import { Link } from "@tanstack/react-router";
+import { optimizeCloudinaryUrl } from "@/lib/cloudinary";
 
 export default function InfinitySlider() {
   const { lang } = useI18n();
@@ -17,7 +18,7 @@ export default function InfinitySlider() {
               search={{ category: c.id }}
               className="group flex min-w-[180px] items-center gap-3 rounded-full border-2 border-forest bg-white px-5 py-3 shadow-sm transition hover:bg-forest hover:text-sun"
             >
-              <img src={c.image} alt={c.en} className="h-10 w-10 object-contain" />
+              <img src={optimizeCloudinaryUrl(c.image, 100)} alt={c.en} className="h-10 w-10 object-contain" />
               <span className="font-display text-sm font-bold text-forest-deep group-hover:text-sun">
                 {lang === "ar" ? c.ar : c.en}
               </span>

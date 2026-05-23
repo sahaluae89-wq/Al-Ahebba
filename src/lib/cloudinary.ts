@@ -28,7 +28,7 @@ export const getCloudinarySignature = createServerFn({ method: 'GET' }).handler(
 )
 
 export const deleteCloudinaryImage = createServerFn({ method: 'POST' })
-  .validator((data: { imageUrl: string }) => data)
+  .inputValidator((data: { imageUrl: string }) => data)
   .handler(async ({ data }) => {
     try {
       cloudinary.config({
@@ -56,6 +56,19 @@ export const deleteCloudinaryImage = createServerFn({ method: 'POST' })
       return { success: true };
     } catch (error) {
       console.error("Cloudinary delete error:", error);
-      return { success: false, error };
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : String(error),
+      };
     }
   });
+
+export function optimizeCloudinaryUrl(url: string, width: number): string {
+  if (!url || !url.includes('cloudinary.com')) return url;
+  
+  const parts = url.split('/upload/');
+  if (parts.length !== 2) return url;
+  
+  // Add format auto, quality auto, and resize width
+  return `${parts[0]}/upload/f_auto,q_auto,w_${width}/${parts[1]}`;
+}

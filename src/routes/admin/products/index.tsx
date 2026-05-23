@@ -140,7 +140,7 @@ function ProductsList() {
                   <TableCell className="font-medium">{product.name}</TableCell>
                   <TableCell>{product.category}</TableCell>
                   <TableCell>
-                    {product.price ? `${product.price} QAR` : "-"}
+                    {product.price ? `${product.price} AED` : "-"}
                   </TableCell>
                   <TableCell>
                     {product.offer_percentage ? (
@@ -164,7 +164,7 @@ function ProductsList() {
                   </TableCell>
                   <TableCell className="text-right">
                     <div className="flex justify-end gap-2">
-                      <Link to={`/admin/products/edit/${product.id}`}>
+                      <Link to="/admin/products/edit/$id" params={{ id: product.id }}>
                         <Button variant="ghost" size="icon">
                           <Edit className="h-4 w-4" />
                         </Button>
