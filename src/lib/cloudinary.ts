@@ -1,29 +1,47 @@
 import { createServerFn } from '@tanstack/react-start'
 import { v2 as cloudinary } from 'cloudinary'
 
+const getEnv = (key: string): string => {
+  const val = (import.meta.env?.[key] || process.env?.[key] || '') as string;
+  return val.replace(/^["']|["']$/g, '').trim();
+};
+
 export const getCloudinarySignature = createServerFn({ method: 'GET' }).handler(
   async () => {
+    const cloudName = getEnv('VITE_CLOUDINARY_CLOUD_NAME');
+    const apiKey = getEnv('VITE_CLOUDINARY_API_KEY');
+    const apiSecret = getEnv('CLOUDINARY_API_SECRET');
+
+    if (!cloudName || !apiKey || !apiSecret) {
+      console.error("Missing Cloudinary configuration:", {
+        hasCloudName: !!cloudName,
+        hasApiKey: !!apiKey,
+        hasApiSecret: !!apiSecret
+      });
+      throw new Error("Missing Cloudinary configuration environment variables.");
+    }
+
     // Configure Cloudinary inside the server function
     cloudinary.config({
-      cloud_name: process.env.VITE_CLOUDINARY_CLOUD_NAME,
-      api_key: process.env.VITE_CLOUDINARY_API_KEY,
-      api_secret: process.env.CLOUDINARY_API_SECRET,
-    })
+      cloud_name: cloudName,
+      api_key: apiKey,
+      api_secret: apiSecret,
+    });
 
-    const timestamp = Math.round(new Date().getTime() / 1000)
+    const timestamp = Math.round(new Date().getTime() / 1000);
     const signature = cloudinary.utils.api_sign_request(
       {
         timestamp: timestamp,
       },
-      process.env.CLOUDINARY_API_SECRET!
-    )
+      apiSecret
+    );
 
     return {
       timestamp,
       signature,
-      cloudName: process.env.VITE_CLOUDINARY_CLOUD_NAME,
-      apiKey: process.env.VITE_CLOUDINARY_API_KEY,
-    }
+      cloudName,
+      apiKey,
+    };
   }
 )
 
@@ -31,10 +49,18 @@ export const deleteCloudinaryImage = createServerFn({ method: 'POST' })
   .inputValidator((data: { imageUrl: string }) => data)
   .handler(async ({ data }) => {
     try {
+      const cloudName = getEnv('VITE_CLOUDINARY_CLOUD_NAME');
+      const apiKey = getEnv('VITE_CLOUDINARY_API_KEY');
+      const apiSecret = getEnv('CLOUDINARY_API_SECRET');
+
+      if (!cloudName || !apiKey || !apiSecret) {
+        throw new Error("Missing Cloudinary configuration environment variables.");
+      }
+
       cloudinary.config({
-        cloud_name: process.env.VITE_CLOUDINARY_CLOUD_NAME,
-        api_key: process.env.VITE_CLOUDINARY_API_KEY,
-        api_secret: process.env.CLOUDINARY_API_SECRET,
+        cloud_name: cloudName,
+        api_key: apiKey,
+        api_secret: apiSecret,
       });
 
       const urlParts = data.imageUrl.split('/');

@@ -25,6 +25,7 @@ import {
 import { categories } from "@/lib/categories";
 import { UploadCloud, Image as ImageIcon, Loader2 } from "lucide-react";
 import { getCloudinarySignature } from "@/lib/cloudinary";
+import { toast } from "sonner";
 
 const productSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -90,7 +91,7 @@ export function ProductForm({ initialData, onSubmit, isLoading }: ProductFormPro
       form.setValue("image_url", uploadData.secure_url, { shouldValidate: true });
     } catch (error) {
       console.error("Upload error:", error);
-      alert("Failed to upload image");
+      toast.error(error instanceof Error ? error.message : "Failed to upload image");
     } finally {
       setIsUploading(false);
     }
