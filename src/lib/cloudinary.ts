@@ -1,15 +1,21 @@
 import { createServerFn } from '@tanstack/react-start'
 import { v2 as cloudinary } from 'cloudinary'
 
-const getEnv = (key: string): string => {
-  const val = (import.meta.env?.[key] || process.env?.[key] || '') as string;
-  return val.replace(/^["']|["']$/g, '').trim();
+const getEnv = (key: string, fallbackKeys: string[] = []): string => {
+  let val = (import.meta.env?.[key] || process.env?.[key]) as string | undefined;
+  if (!val) {
+    for (const fbKey of fallbackKeys) {
+      val = (import.meta.env?.[fbKey] || process.env?.[fbKey]) as string | undefined;
+      if (val) break;
+    }
+  }
+  return (val || '').replace(/^["']|["']$/g, '').trim();
 };
 
 export const getCloudinarySignature = createServerFn({ method: 'GET' }).handler(
   async () => {
-    const cloudName = getEnv('VITE_CLOUDINARY_CLOUD_NAME');
-    const apiKey = getEnv('VITE_CLOUDINARY_API_KEY');
+    const cloudName = getEnv('VITE_CLOUDINARY_CLOUD_NAME', ['CLOUDINARY_CLOUD_NAME']);
+    const apiKey = getEnv('VITE_CLOUDINARY_API_KEY', ['CLOUDINARY_API_KEY']);
     const apiSecret = getEnv('CLOUDINARY_API_SECRET');
 
     if (!cloudName || !apiKey || !apiSecret) {
@@ -18,7 +24,7 @@ export const getCloudinarySignature = createServerFn({ method: 'GET' }).handler(
         hasApiKey: !!apiKey,
         hasApiSecret: !!apiSecret
       });
-      throw new Error("Missing Cloudinary configuration environment variables.");
+      throw new Error("Missing Cloudinary configuration environment variables. Please check your production dashboard settings.");
     }
 
     // Configure Cloudinary inside the server function
@@ -49,8 +55,8 @@ export const deleteCloudinaryImage = createServerFn({ method: 'POST' })
   .inputValidator((data: { imageUrl: string }) => data)
   .handler(async ({ data }) => {
     try {
-      const cloudName = getEnv('VITE_CLOUDINARY_CLOUD_NAME');
-      const apiKey = getEnv('VITE_CLOUDINARY_API_KEY');
+      const cloudName = getEnv('VITE_CLOUDINARY_CLOUD_NAME', ['CLOUDINARY_CLOUD_NAME']);
+      const apiKey = getEnv('VITE_CLOUDINARY_API_KEY', ['CLOUDINARY_API_KEY']);
       const apiSecret = getEnv('CLOUDINARY_API_SECRET');
 
       if (!cloudName || !apiKey || !apiSecret) {
